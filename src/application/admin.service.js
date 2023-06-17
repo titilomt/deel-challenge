@@ -1,4 +1,4 @@
-import { sequelize } from "../domain/model.js";
+import { sequelize } from "../infra/db/orm/sequelize.js";
 
 /**
  * Returns the profession that earned the most money

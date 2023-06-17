@@ -1,4 +1,4 @@
-import { Profile } from "../domain/model.js";
+import { Profile } from "../domain/index.js";
 
 const getProfileService = async (profileId) => {
   const profile =
@@ -37,6 +37,10 @@ const clientTransaction = async (
   if (!client || !contractor) return false;
   if (client.type !== "client") return false;
   if (contractor.type !== "contractor") return false;
+
+  const hasBalance = await clientHasBalance(clientId, amount);
+
+  if (!hasBalance) return false;
 
   const newClientBalance = client.balance - amount;
   const newContractorBalance = contractor.balance + amount;

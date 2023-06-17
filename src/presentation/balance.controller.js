@@ -14,7 +14,7 @@ const postDepositController = async (req, res) => {
 
     if (!depositMessage) return res.status(404).end();
 
-    return res.status(200).send(depositMessage);
+    return res.status(200).send({ message: depositMessage });
   } catch (err) {
     console.error(err);
     return res.status(500).end();

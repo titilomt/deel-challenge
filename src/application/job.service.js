@@ -1,6 +1,8 @@
-import { Job, Contract, sequelize } from "../domain/model.js";
+import { sequelize } from "../infra/db/orm/sequelize.js";
 
-import { clientHasBalance, clientTransaction } from "./profile.service.js";
+import { Job, Contract } from "../domain/index.js";
+
+import { clientTransaction } from "./profile.service.js";
 
 const getAllUnpaidJobsService = async (profileMeta = {}) => {
   const { profileId, type } = profileMeta;
@@ -60,10 +62,6 @@ const postPaymentJobService = async (id, profileMeta = {}) => {
 
     if (!job) return null;
 
-    const hasBalance = await clientHasBalance(profileId, job.price);
-
-    if (!hasBalance) return "Insufficient funds";
-
     const transactionResponse = await clientTransaction(
       job.Contract.ClientId,
       job.Contract.ContractorId,
@@ -79,6 +77,7 @@ const postPaymentJobService = async (id, profileMeta = {}) => {
 
     return "Payment successful";
   } catch (error) {
+    console.error(error);
     await transaction.rollback();
     throw error;
   }

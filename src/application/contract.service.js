@@ -1,13 +1,9 @@
 import { Op } from "sequelize";
 
-import { Contract } from "../domain/model.js";
+import { Contract } from "../domain/index.js";
 
 /**
  * Get contract by id and profileId
- *
- * @param {*} id
- * @param {*} profileId
- * @returns {Promise<import("../domain/model.js").Contract>}
  */
 const getContractByIdService = async (id, profileMeta = {}) => {
   const { profileId, type } = profileMeta;

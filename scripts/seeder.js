@@ -1,8 +1,6 @@
 import { Profile, Contract, Job } from "../src/domain/index.js";
 
-/* WARNING THIS WILL DROP THE CURRENT DATABASE */
-
-async function seed() {
+export const seed = async () => {
   // create tables
   await Profile.sync({ force: true });
   await Contract.sync({ force: true });
@@ -225,5 +223,4 @@ async function seed() {
       ContractId: 3,
     }),
   ]);
-}
-seed().catch((err) => console.error(err));
+};
